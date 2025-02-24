@@ -13,33 +13,32 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      flex-direction: column;  /* スマホの縦画面に合わせてボタンとキャンバスを縦に並べる */
+      flex-direction: column;
     }
 
-  button {
-    padding: 20px 40px;
-    font-size: 20px;
-    color: white;
-    background-color: #ff6600;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 10;
-    margin-bottom: 50px;  /* 少し下に位置を調整 */
-    width: 80%;
-    max-width: 300px;
-    position: relative;  /* 親要素に対して位置を調整 */
-    top: 20vh;  /* ボタンを画面中央から少し下に配置 */
-  }
-
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      color: white;
+      background-color: #ff6600;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      z-index: 10;
+      margin-bottom: 50px;
+      width: 80%;
+      max-width: 300px;
+      position: relative;
+      top: 20vh;
+    }
 
     canvas {
       position: absolute;
       top: 0;
       left: 0;
       z-index: 1;
-      width: 100%;  /* キャンバスの幅を画面サイズに合わせる */
-      height: 100%;  /* キャンバスの高さも画面サイズに合わせる */
+      width: 100%;
+      height: 100%;
     }
 
   </style>
@@ -132,19 +131,23 @@
     // 花火が発生する関数
     function launchFirework(event) {
       const firework = new Firework(event.clientX, event.clientY);
-      firework.update();
-      firework.draw();
+      fireworks.push(firework);  // 発生した花火をfireworks配列に追加
 
       const interval = setInterval(() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 背景をリセット
-        firework.update();
-        firework.draw();
+        fireworks.forEach(firework => {
+          firework.update();
+          firework.draw();
+        });
 
-        if (firework.particles[0].alpha <= 0) {
-          clearInterval(interval); // 花火が終わったら停止
+        // すべての花火が終了したらインターバルを停止
+        if (fireworks.every(firework => firework.particles[0].alpha <= 0)) {
+          clearInterval(interval); 
         }
       }, 1000 / 60); // 60FPSで更新
     }
+
+    const fireworks = [];  // すべての花火を保存する配列
 
     // ボタンがクリックされたときのイベント
     button.addEventListener('click', (event) => {
