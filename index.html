@@ -16,19 +16,22 @@
       flex-direction: column;  /* スマホの縦画面に合わせてボタンとキャンバスを縦に並べる */
     }
 
-    button {
-      padding: 20px 40px;
-      font-size: 20px;
-      color: white;
-      background-color: #ff6600;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      z-index: 10;
-      margin-bottom: 20px;  /* ボタンとキャンバスの間に隙間を作る */
-      width: 80%;  /* スマホでもボタンが大きすぎないように調整 */
-      max-width: 300px;  /* ボタンの最大幅を設定 */
-    }
+  button {
+    padding: 20px 40px;
+    font-size: 20px;
+    color: white;
+    background-color: #ff6600;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+    margin-bottom: 50px;  /* 少し下に位置を調整 */
+    width: 80%;
+    max-width: 300px;
+    position: relative;  /* 親要素に対して位置を調整 */
+    top: 20vh;  /* ボタンを画面中央から少し下に配置 */
+  }
+
 
     canvas {
       position: absolute;
