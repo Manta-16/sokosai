@@ -128,30 +128,48 @@
       }
     }
 
-    // 花火が発生する関数
-    function launchFirework(event) {
-      const firework = new Firework(event.clientX, event.clientY);
-      fireworks.push(firework);  // 発生した花火をfireworks配列に追加
-
-      const interval = setInterval(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // 背景をリセット
-        fireworks.forEach(firework => {
-          firework.update();
-          firework.draw();
-        });
-
-        // すべての花火が終了したらインターバルを停止
-        if (fireworks.every(firework => firework.particles[0].alpha <= 0)) {
-          clearInterval(interval); 
-        }
-      }, 1000 / 60); // 60FPSで更新
+    // ランダムな位置を生成する関数
+    function getRandomPosition() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      return { x, y };
     }
 
-    const fireworks = [];  // すべての花火を保存する配列
+    // 花火を表示するためのループ
+    let fireworks = [];  // すべての花火を保存する配列
+    let animationFrameId;
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // 背景をリセット
+
+      // すべての花火を更新して描画
+      fireworks.forEach(firework => {
+        firework.update();
+        firework.draw();
+      });
+
+      // すべての花火が終了したら、配列から削除
+      fireworks = fireworks.filter(firework => firework.particles.some(particle => particle.alpha > 0));
+
+      // 次のフレームで再描画
+      animationFrameId = requestAnimationFrame(animate);
+    }
+
+    // 花火が発生する関数
+    function launchFirework() {
+      const { x, y } = getRandomPosition();  // ランダムな位置を取得
+      const firework = new Firework(x, y);
+      fireworks.push(firework);  // 発生した花火をfireworks配列に追加
+
+      // アニメーションの開始
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    }
 
     // ボタンがクリックされたときのイベント
-    button.addEventListener('click', (event) => {
-      launchFirework(event);
+    button.addEventListener('click', () => {
+      launchFirework();  // ランダム位置で花火を発生させる
     });
   </script>
 
