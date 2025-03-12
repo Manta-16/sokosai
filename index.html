@@ -32,7 +32,6 @@
       top: 20vh;
     }
 
-
     canvas {
       position: absolute;
       top: 0;
@@ -40,6 +39,18 @@
       z-index: 1;
       width: 100%;
       height: 100%;
+    }
+
+    /* 画面中央に黄色い文字を表示 */
+    .center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: yellow;  /* 文字の色を黄色に変更 */
+      font-size: 36px;
+      font-family: Arial, sans-serif;
+      z-index: 5; /* ボタンとキャンバスより上に表示 */
     }
 
   </style>
@@ -50,10 +61,14 @@
 
   <canvas id="fireworksCanvas"></canvas>
 
+  <!-- 画面中央に表示する文字 -->
+  <div class="center-text" id="centerText">1年間ありがとうございました</div>
+
   <script>
     const button = document.getElementById('fireworksButton');
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
+    const centerText = document.getElementById('centerText'); // 中央の文字要素
 
     // 画面のリサイズに合わせてキャンバスのサイズを更新
     function resizeCanvas() {
@@ -82,7 +97,7 @@
         for (let i = 0; i < 100; i++) {
           const angle = Math.random() * Math.PI * 2;
           const speed = Math.random() * 3 + 2;
-          const life = Math.random() * 30 + 50;
+          const life = Math.random() * 30 + 10000;
           const color = colors[Math.floor(Math.random() * colors.length)];
           this.particles.push(new Particle(this.x, this.y, angle, speed, life, color));
         }
@@ -114,7 +129,7 @@
         this.y += Math.sin(this.angle) * this.speed;
         this.speed *= 0.98; // 減速
         this.life -= 1;
-        this.alpha -= 0.02; // 不透明度を減少
+        this.alpha -= 0.01; // 不透明度を減少
 
         if (this.life <= 0) {
           this.alpha = 0;
