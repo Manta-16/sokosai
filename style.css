@@ -1,0 +1,28 @@
+.se-item {
+  display:flex;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.se-item button {
+  background-color:#ee7800;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  text-align:center;
+  font-size:15px;
+  font-weight:bold;
+  border-radius:12px;
+  width:170px;
+  cursor:pointer;
+  margin-right:12px;
+  transition:background-color 0.3s;
+}
+.se-item button:hover {
+  background-color:#aa3000;
+}
+
+.description {
+  font-size:20px;
+  color:black;
+}
