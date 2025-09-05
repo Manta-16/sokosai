@@ -2,192 +2,39 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>花火のページ</title>
+  <script src="index.js" defer></script>
+  <title>SE集</title>
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-
     button {
-      padding: 15px 30px; /* 少し小さくする */
-      font-size: 16px;    /* フォントサイズを小さくする */
-      color: white;
-      background-color: #ff6600;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      z-index: 10;
-      margin-bottom: 50px;
-      width: 80%;
-      max-width: 250px;    /* ボタンの幅も少し小さくする */
-      position: relative;
-      top: 20vh;
+      background-color:#ee7800;
+      color:white;
+      border:note;
+      padding:10px 20px;
+      text-align:center;
+      font-size:15px;
+      border-radius:12px;
+      display:block;
+      width:170px;
+      cursor:pointer;
+      margin-bottom:8px;
+      transition:background-color 0.3s;
     }
-
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
+    button:hover {
+      background-color:#aa3000;
     }
-
-    /* 画面中央に黄色い文字を表示 */
-    .center-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: yellow;  /* 文字の色を黄色に変更 */
-      font-size: 36px;
-      font-family: Arial, sans-serif;
-      z-index: 5; /* ボタンとキャンバスより上に表示 */
-    }
-
   </style>
 </head>
 <body>
-
-  <button id="fireworksButton">クリック</button>
-
-  <canvas id="fireworksCanvas"></canvas>
-
-  <!-- 画面中央に表示する文字 -->
-  <div class="center-text" id="centerText">1年間ありがとうございました</div>
-
-  <script>
-    const button = document.getElementById('fireworksButton');
-    const canvas = document.getElementById('fireworksCanvas');
-    const ctx = canvas.getContext('2d');
-    const centerText = document.getElementById('centerText'); // 中央の文字要素
-
-    // 画面のリサイズに合わせてキャンバスのサイズを更新
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    // 最初に一度サイズを調整
-    resizeCanvas();
-
-    // ウィンドウサイズが変わる度にキャンバスサイズを更新
-    window.addEventListener('resize', resizeCanvas);
-
-    // 花火のパーティクルを管理するクラス
-    class Firework {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.particles = [];
-        this.createParticles();
-      }
-
-      createParticles() {
-        const colors = ['#ff4d4d', '#ffcc00', '#33cc33', '#3399ff', '#9933ff'];
-
-        for (let i = 0; i < 100; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 3 + 2;
-          const life = Math.random() * 30 + 10000;
-          const color = colors[Math.floor(Math.random() * colors.length)];
-          this.particles.push(new Particle(this.x, this.y, angle, speed, life, color));
-        }
-      }
-
-      update() {
-        this.particles.forEach(particle => particle.update());
-      }
-
-      draw() {
-        this.particles.forEach(particle => particle.draw());
-      }
-    }
-
-    // パーティクルを管理するクラス
-    class Particle {
-      constructor(x, y, angle, speed, life, color) {
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
-        this.speed = speed;
-        this.life = life;
-        this.color = color;
-        this.alpha = 1; // 不透明度
-      }
-
-      update() {
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-        this.speed *= 0.98; // 減速
-        this.life -= 1;
-        this.alpha -= 0.01; // 不透明度を減少
-
-        if (this.life <= 0) {
-          this.alpha = 0;
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${parseInt(this.color.slice(1, 3), 16)}, ${parseInt(this.color.slice(3, 5), 16)}, ${parseInt(this.color.slice(5, 7), 16)}, ${this.alpha})`;
-        ctx.fill();
-      }
-    }
-
-    // ランダムな位置を生成する関数
-    function getRandomPosition() {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      return { x, y };
-    }
-
-    // 花火を表示するためのループ
-    let fireworks = [];  // すべての花火を保存する配列
-    let animationFrameId;
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // 背景をリセット
-
-      // すべての花火を更新して描画
-      fireworks.forEach(firework => {
-        firework.update();
-        firework.draw();
-      });
-
-      // すべての花火が終了したら、配列から削除
-      fireworks = fireworks.filter(firework => firework.particles.some(particle => particle.alpha > 0));
-
-      // 次のフレームで再描画
-      animationFrameId = requestAnimationFrame(animate);
-    }
-
-    // 花火が発生する関数
-    function launchFirework() {
-      const { x, y } = getRandomPosition();  // ランダムな位置を取得
-      const firework = new Firework(x, y);
-      fireworks.push(firework);  // 発生した花火をfireworks配列に追加
-
-      // アニメーションの開始
-      if (!animationFrameId) {
-        animationFrameId = requestAnimationFrame(animate);
-      }
-    }
-
-    // ボタンがクリックされたときのイベント
-    button.addEventListener('click', () => {
-      launchFirework();  // ランダム位置で花火を発生させる
-    });
-  </script>
-
+  <button onclick="play_sound_level()">レベルアップ</button>
+  <button onclick="play_sound_doramu()">ドラムロール</button>
+  <button onclick="play_sound_jaja_n()">ジャジャーン</button>
+  <button onclick="play_sound_yeah()">イエーイ</button>
+  <button onclick="play_sound_donpafu()">ドンドンパフパフ</button>
+  <button onclick="play_sound_ramen()">ラーメン屋台</button>
+  <button onclick="play_sound_fuan()">不安(ピアノ)</button>
+  <button onclick="play_sound_hyousigi()">拍子木</button>
+  <button onclick="play_sound_kansei()">歓声と拍手</button>
+  <button onclick="play_sound_stadium()">スタジアムの歓声</button>
+  <button onclick="play_sound_horagai()">ほら貝</button>
 </body>
 </html>
