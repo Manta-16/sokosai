@@ -2,39 +2,55 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <script src="scripts.js" defer></script>
+  <script src="index.js" defer></script>
+  <link rel="stylesheet" href="style.css">
   <title>SE集</title>
-  <style>
-    button {
-      background-color:#ee7800;
-      color:white;
-      border:none;
-      padding:10px 20px;
-      text-align:center;
-      font-size:15px;
-      border-radius:12px;
-      display:block;
-      width:170px;
-      cursor:pointer;
-      margin-bottom:8px;
-      transition:background-color 0.3s;
-    }
-    button:hover {
-      background-color:#aa1000;
-    }
-  </style>
 </head>
 <body>
-  <button onclick="play_sound_level()">レベルアップ</button>
-  <button onclick="play_sound_doramu()">ドラムロール</button>
-  <button onclick="play_sound_jaja_n()">ジャジャーン</button>
-  <button onclick="play_sound_yeah()">イエーイ</button>
-  <button onclick="play_sound_donpafu()">ドンドンパフパフ</button>
-  <button onclick="play_sound_ramen()">ラーメン屋台</button>
-  <button onclick="play_sound_fuan()">不安(ピアノ)</button>
-  <button onclick="play_sound_hyousigi()">拍子木</button>
-  <button onclick="play_sound_kansei()">歓声と拍手</button>
-  <button onclick="play_sound_stadium()">スタジアムの歓声</button>
-  <button onclick="play_sound_horagai()">ほら貝</button>
+  <h1>教室監督の人がいろんな時に鳴らすSE</h1>
+  <div class="se-item">
+    <button onclick="play_sound_level()">レベルアップ</button>
+    <span class="description">ドッキリ大成功の音</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_doramu()">ドラムロール</button>
+    <span class="description">普通のドラムロール</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_jaja_n()">ジャジャーン</button>
+    <span class="description">ドラムロールの次に流したい</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_yeah()">イエーイ</button>
+    <span class="description">短めの男声</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_donpafu()">ドンドンパフパフ</button>
+    <span class="description">YouTubeでよく聞くあれ</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_ramen()">ラーメン屋台</button>
+    <span class="description">チャルメラ</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_fuan()">不安(ピアノ)</button>
+    <span class="description">短い効果音</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_hyousigi()">拍子木</button>
+    <span class="description">開幕の音</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_kansei()">歓声と拍手</button>
+    <span class="description">歓声や口笛の音</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_stadium()">スタジアムの歓声</button>
+    <span class="description">１個上の長い版</span>
+  </div>
+  <div class="se-item">
+    <button onclick="play_sound_horagai()">ほら貝</button>
+    <span class="description">船の汽笛っぽい</span>
+  </div>
 </body>
 </html>
