@@ -1,5 +1,5 @@
 function play_sound_level() {
-  const audio = new Audio("レベルアップ.mp3");
+  const audio = new Audio("levelup.mp3");
   audio.play();
 }
 function play_sound_doramu() {
