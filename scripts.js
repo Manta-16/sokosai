@@ -1,6 +1,6 @@
 function play_sound_level() {
   const audio = new Audio("levelup.mp3");
-  audio.play();
+  audio.play().catch(e => alert("再生エラー"));
 }
 function play_sound_doramu() {
   const audio = new Audio("dramroll.mp3");
