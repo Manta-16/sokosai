@@ -10,6 +10,14 @@ function play_sound_jaja_n() {
   const audio = new Audio("jajan.mp3");
   audio.play();
 }
+function play_sound_doramu_jan() {
+  const doramu = new Audio("dramroll.mp3");
+  const jan = new Audio("jajan.mp3");
+  doramu.onended = () => {
+    jan.play();
+  };
+  doramu.play();
+}
 function play_sound_yeah() {
   const audio = new Audio("yeah.mp3");
   audio.play();
