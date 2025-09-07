@@ -18,6 +18,14 @@ function play_sound_doramu_jan() {
   };
   doramu.play();
 }
+function play_sound_doramu_dora() {
+  const doramu = new Audio("dramroll.mp3");
+  const dora = new Audio("dora.mp3");
+  doramu.onended = () => {
+    dora.play();
+  }
+  doramu.play();
+}
 function play_sound_yeah() {
   const audio = new Audio("yeah.mp3");
   audio.play();
@@ -48,5 +56,9 @@ function play_sound_stadium() {
 }
 function play_sound_horagai() {
   const audio = new Audio("horagai.mp3");
+  audio.play();
+}
+function play_sound_dora() {
+  const audio = new Audio("dora.mp3");
   audio.play();
 }
