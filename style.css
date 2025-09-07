@@ -22,6 +22,24 @@
   background-color:#aa3000;
 }
 
+.se-item_sp button {
+  background-color:#cde6c7;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  text-align:center;
+  font-size:15px;
+  font-weight:bold;
+  border-radius:12px;
+  width:180px;
+  cursor:pointer;
+  margin-right:12px;
+  transition:background-color 0.3s;
+}
+.se-item_sp button:hover {
+  background-color:#97c5b0;
+}
+
 .description {
   font-size:20px;
   color:black;
