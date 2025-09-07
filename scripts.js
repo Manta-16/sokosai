@@ -66,3 +66,7 @@ function play_sound_kiran() {
   const audio = new Audio("kira_n.mp3");
   audio.play();
 }
+function play_sound_dededon() {
+  const audio = new Audio("dededon.mp3");
+  audio.play();
+}
