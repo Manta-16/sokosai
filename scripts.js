@@ -62,3 +62,7 @@ function play_sound_dora() {
   const audio = new Audio("dora.mp3");
   audio.play();
 }
+function play_sound_kiran() {
+  const audio = new Audio("kira_n.mp3");
+  audio.play();
+}
